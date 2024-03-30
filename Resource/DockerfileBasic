@@ -1,0 +1,10 @@
+FROM ubuntu:latest
+ARG DIR=/home/devops
+ENV TEST=$DIR
+WORKDIR $DIR
+COPY  display.sh .
+COPY . .
+RUN chmod u+x display.sh
+RUN ./display.sh Printing inside container
+ENTRYPOINT [ "./display.sh" ]
+CMD "Hello"
