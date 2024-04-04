@@ -1,0 +1,12 @@
+kubectl create secret docker-registry my-registry-secret \
+  --docker-server=DOCKER_REGISTRY_SERVER \
+  --docker-username=DOCKER_USER \
+  --docker-password=DOCKER_PASSWORD \
+  --docker-email=DOCKER_EMAIL
+----------------------------------------------
+  docker service create --name my_service --secret registry_username --secret registry_password my_image
+
+------------------------------------
+  docker login -u username -p password
+  docker tag jenkins/jenkins:lts nethra222/myjenkins:1.0
+  sudo docker push nethra222/myjenkins:1.0
