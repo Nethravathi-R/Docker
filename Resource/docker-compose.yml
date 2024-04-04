@@ -1,0 +1,33 @@
+version: '3'
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    ports:
+      - 8081:8080
+      - 50001:50000
+    volumes:
+      - my_jenkins:/var/jenkins_home
+  tomcat:
+    depends_on:
+      - jenkins
+    image: tomcat:9.0
+    container_name: tomcat
+    ports:
+      - 8888:8080
+  ubuntu:
+    restart: always
+    build:
+      context: .
+    dockerfile: Dockerfile
+    working_dir: /home/chaitra
+    container_name: ubuntu_container
+    networks:
+      - my_network
+    depends_on:
+      - tomcat
+      - jenkins
+volumes:
+  my_jenkins:
+networks:
+  my_network:
