@@ -1,0 +1,21 @@
+FROM ubuntu:latest
+ARG DIR=/home/devops
+ENV TEST  "test"
+EXPOSE 8090
+#WORKDIR creates workking direcoty under container
+WORKDIR $DIR
+#COPY display.sh . this will copy only perticular file
+#COPY . . copy all files from current driver to conatiner
+COPY . .
+#This ADD will download the tar file
+ADD https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.86/bin/apache-tomcat-9.0.86.tar.gz .
+#This is will untar the zip file
+ADD apache-tomcat-9.0.86.tar.gz .
+RUN chmod u+x display.sh
+RUN chmod u+x test.sh
+RUN ./display.sh Printing inside image
+CMD ./display.sh $TEST 
+#CMD [ "/bin/bash" , "-c", "./display.sh Prints this line when container is created;./test.sh" ]
+#ENTRYPOINT  [ "/bin/bash" , "-c", "./display.sh Prints this line when container is created;./test.sh" ] 
+#ENTRYPOINT  [ "./display.sh" ]
+#CMD "print the message of display.sh"
